@@ -1,0 +1,33 @@
+CONTROLE FINANCEIRO — APP DE CELULAR
+====================================
+
+O QUE É
+App instalável (PWA). Depois de colocado na internet uma vez, você abre o link no
+celular, toca em "Adicionar à tela inicial" e ele vira um app com ícone, em tela
+cheia, que funciona também sem internet.
+
+COMO COLOCAR NO AR (uma vez só, grátis)
+O app precisa de um endereço https para ser instalável. Qualquer hospedagem de
+site estático serve; por exemplo Netlify (arrastar a pasta), GitHub Pages ou
+Cloudflare Pages. Envie TODOS os arquivos desta pasta:
+  index.html, manifest.json, sw.js e os três icon-*.png
+
+COMO INSTALAR NO CELULAR
+  Android (Chrome): abra o link > menu ⋮ > "Instalar app" / "Adicionar à tela inicial"
+  iPhone (Safari):  abra o link > botão Compartilhar > "Adicionar à Tela de Início"
+
+PRIMEIRO USO
+  Toque em "Importar meu backup" e escolha o arquivo .json exportado pelo dashboard
+  (botão "Exportar Backup"). Seus saldos, cartões, receitas e lançamentos aparecem.
+
+SINCRONIZAR COM O COMPUTADOR
+  Celular -> computador: Mais > Backup > Exportar, envie o arquivo para você mesmo
+                         (WhatsApp, e-mail, Drive) e use "Importar Backup" no dashboard.
+  Computador -> celular: exporte pelo dashboard e use Importar no app.
+  Importar substitui os dados do aparelho que está importando. Por isso: use um
+  aparelho como "principal" e leve o backup para o outro só quando quiser consultar.
+
+IMPORTANTE
+  Os dados ficam guardados no navegador do celular. Se você limpar os dados do
+  navegador ou desinstalar o app, eles somem. Faça backup com frequência: o app avisa
+  quando passar de 7 dias.
