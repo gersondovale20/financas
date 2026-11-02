@@ -149,7 +149,10 @@ function calcularMesFaturaAutomatico(cardNome, dataCompraISO){
   const dia = Number(dataCompraISO.slice(8,10));
   const fechamento = Number(card.fechamento)||31;
   const mesCompra = dataCompraISO.slice(0,7);
-  return dia<=fechamento ? mesCompra : addMonths(mesCompra,1);
+  const mesFechamento = dia<=fechamento ? mesCompra : addMonths(mesCompra,1);
+  // a fatura leva o nome do mês em que VENCE (como no app do banco): se vence antes do dia do fechamento, vence no mês seguinte
+  const vencimento = Number(card.vencimento)||fechamento;
+  return vencimento>fechamento ? mesFechamento : addMonths(mesFechamento,1);
 }
 function accountBalance(accountId){
   const acc = DATA.accounts.find(a=>a.id===accountId);
@@ -439,12 +442,16 @@ function toast(msg){
 }
 
 /* ---------- helpers de domínio ---------- */
+// A fatura é identificada pelo mês em que VENCE (igual ao app do banco).
 function dueDateForFatura(card, mk){
-  const f = Number(card.fechamento)||31, v = Number(card.vencimento)||f;
-  const mesVenc = v > f ? mk : addMonths(mk,1);
-  return mesVenc+'-'+String(v).padStart(2,'0');
+  const v = Number(card.vencimento)||Number(card.fechamento)||28;
+  return mk+'-'+String(v).padStart(2,'0');
 }
-function closeDateForFatura(card, mk){ return mk+'-'+String(Number(card.fechamento)||28).padStart(2,'0'); }
+function closeDateForFatura(card, mk){
+  const f = Number(card.fechamento)||28, v = Number(card.vencimento)||f;
+  const mesFech = v>f ? mk : addMonths(mk,-1);   // vence antes do dia do fechamento => fechou no mês anterior
+  return mesFech+'-'+String(f).padStart(2,'0');
+}
 function faturaEstado(card, mk){
   // aberta: ainda recebendo compras; fechada: já fechou
   return todayISO() > closeDateForFatura(card, mk) ? 'fechada' : 'aberta';
